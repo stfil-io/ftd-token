@@ -36,4 +36,9 @@ interface IFTDToken is IERC20Upgradeable {
    * - the caller must have allowance for ``accounts``'s tokens of at least
    */
   function burnFrom(address account, uint256 amount) external;
+
+  /**
+   * @dev Returns the mint supply.
+   */
+  function mintSupply() external view returns (uint256);
 }

@@ -14,6 +14,8 @@ contract FTDToken is IFTDToken, ERC20VotesUpgradeable {
 
   uint256 public constant TOTAL_SUPPLY = 500000000 ether;
 
+  uint256 internal _mintSupply = 0;
+
   /// @custom:oz-upgrades-unsafe-allow constructor
   constructor() {
     _disableInitializers();
@@ -32,9 +34,10 @@ contract FTDToken is IFTDToken, ERC20VotesUpgradeable {
    */
   function mint(address account, uint256 amount) external {
     account = account.normalize();
-    
-    require(amount + totalSupply() <= TOTAL_SUPPLY, "FTDToken: total supply overflowing");
+
+    require(amount + _mintSupply <= TOTAL_SUPPLY, "FTDToken: total supply overflowing");
     _mint(account, amount);
+    _mintSupply += amount;
 
     emit Mint(account, amount);
   }
@@ -62,5 +65,12 @@ contract FTDToken is IFTDToken, ERC20VotesUpgradeable {
     _burn(account, amount);
 
     emit BurnFrom(sender, account, amount);
+  }
+
+  /**
+   * @dev Returns the mint supply.
+   */
+  function mintSupply() external view returns (uint256) {
+    return _mintSupply;
   }
 }

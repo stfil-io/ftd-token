@@ -25,8 +25,8 @@ contract FTDToken is IFTDToken, ERC20VotesUpgradeable {
    * @dev Initializes the FTDToken
    */
   function initialize() external initializer {
-    __ERC20_init("FTDToken","FTD");
-    __ERC20Permit_init("FTDToken");
+    __ERC20_init("FTD Token","FTD");
+    __ERC20Permit_init("FTD Token");
   }
 
   /**
